@@ -78,3 +78,20 @@ Get-WmiObject -Class Win32_Product
 
 #Get disk information
 Get-WmiObject -Class Win32_LogicalDisk
+
+# Check for Windows Updates
+Install-Module PSWindowsUpdate -Force -Confirm:$false
+Import-Module PSWindowsUpdate  
+Get-WindowsUpdate # Must run as Administrator
+
+# Install all available updates
+Install-WindowsUpdate -AcceptAll -AutoReboot
+
+# Check for optional updates
+Get-WindowsUpdate -MicrosoftUpdate
+
+# Check for driver updates
+Get-WindowsUpdate -Category Drivers
+
+# Check for firmware updates
+Get-WindowsUpdate -Category Firmware

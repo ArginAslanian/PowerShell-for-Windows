@@ -1,6 +1,26 @@
 #Get system information
 Get-ComputerInfo
 
+# Turn off the computer
+Stop-Computer
+# or
+shutdown /s /t 0
+
+# Turn off the computer with a delay of 60 seconds
+Stop-Computer -Delay 60
+# or
+shutdown /s /t 60
+
+# Restart the computer
+Restart-Computer
+# or
+shutdown /r /t 0
+
+# Restart the computer with a delay of 60 seconds
+Restart-Computer -Delay 60
+# or
+shutdown /r /t 60
+
 #Get event logs
 Get-EventLog -LogName System -Newest 10
 
@@ -31,3 +51,12 @@ $disk = Get-CimInstance Win32_LogicalDisk -Filter "DeviceID='C:'"
 $freeSpaceGB = [math]::Round($disk.FreeSpace / 1GB, 2)
 $totalSpaceGB = [math]::Round($disk.Size / 1GB, 2)
 Write-Host "C: Drive Free Space:" $freeSpaceGB "GB out of" $totalSpaceGB "GB"
+
+# Check battery status (for laptops)
+$battery = Get-CimInstance Win32_Battery
+if ($battery) {
+    Write-Host "Battery Status:" $battery.BatteryStatus
+    Write-Host "Estimated Charge Remaining:" $battery.EstimatedChargeRemaining "%"
+} else {
+    Write-Host "No battery information available."
+}   
