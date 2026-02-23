@@ -11,6 +11,11 @@ select disk X               # Select the USB drive (replace 'X' with the correct
 
 clean                       # Remove all partitions and data from the selected disk
 
+# If "DiskPart has encountered an error: Access is denied. See the System Event Log for more information."
+attributes disk clear readonly  
+
+# and then 'clean' again
+
 create partition primary    # Create a new primary partition on the USB drive
 
 format fs=fat32 quick       # Format the partition with the FAT32 file system (If less than 32GB)
